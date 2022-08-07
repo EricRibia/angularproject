@@ -1,0 +1,43 @@
+<div class="product-info-container">
+  <div class="cart-section">
+    <h1>In Cart:{{cart}}</h1>
+  </div>
+<div class="product-card" [class.onSale]="isProductOnSale()">
+  <div class="product-image">
+    <img src="assets/eames" alt="Eames Chair"/>
+  </div>
+  <div class="product-content">
+    <div>
+      <h1>{{product.name}}</h1>
+      <select name="quantity" id="quantity">
+        <option value="0">Please select quantity</option>
+        <option *ngFor="let in of utils.setArrayFromNumber(20);let i = index" [value]="i+1">{{i+1}}</option>
+      </select>
+    </div>
+
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad adipisci, asperiores at culpa, dolore, dolorum ea hic molestiae pariatur quas quidem unde velit. Eaque pariatur quasi similique unde ut!</p>
+  </div>
+  <div class="product-footer">
+    <h3>
+      {{product.price | currency}}
+    </h3>
+    <div *ngIf="product.onSale">
+    <button *ngIf="cart==0" (click)="addToCart()">
+      Add To Cart
+    </button>
+    <div *ngIf="cart!=0" class="incart-button">
+      <button [disabled]="cart == 0" (click)="removeFromCart()">-</button>
+      <p>{{cart}}</p>
+      <button [disabled]="product.quantity == 0" (click)="addToCart()">+</button>
+    </div>
+    </div>
+    <div *ngIf="!product.onSale">
+      <p>Not on Sale!</p>
+    </div>
+  </div>
+</div>
+  <div>
+    <button (click)="toggleOnSale()">Toggle On Sale</button>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<h1 class="text-center">Welcome to the Stock Market App!</h1>
+
+<div class="stock-container" >
+  <app-stock-item *ngFor="let stock of stocks; let i = index" [stock]="stock" (toggleFavorite)="handleToggleFavorite($event,i)"></app-stock-item>
+
+  <button (click)="changeStockObject()">Change Obj</button>
+  <button (click)="changeStockPrice()">Change Price</button>
+</div>
