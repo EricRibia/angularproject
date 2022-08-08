@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ProductModel } from '../models/product-model';
 import { Utils } from '../utils';
 
@@ -6,46 +13,46 @@ import { Utils } from '../utils';
   selector: 'app-product-component',
   templateUrl: './product-component.component.html',
   styleUrls: ['./product-component.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductComponentComponent implements OnInit {
-  private _product: ProductModel | undefined;
-  public _cart: number = 0;
+  @Input() product: ProductModel | undefined;
+  @Input() product_in_cart: boolean | number = false;
+  @Output() toggleOnSale: EventEmitter<ProductModel>;
+  @Output() addToCart: EventEmitter<ProductModel>;
+  @Output() removeFromCart: EventEmitter<ProductModel>;
   public utils = new Utils();
-  constructor() {}
+  constructor() {
+    this.toggleOnSale = new EventEmitter<ProductModel>();
+    this.addToCart = new EventEmitter<ProductModel>();
+    this.removeFromCart = new EventEmitter<ProductModel>();
+  }
 
   ngOnInit(): void {
-    const ar = this.utils.setArrayFromNumber(10);
-    console.log('ar', ar);
-    this._product = new ProductModel('Eames Chair', 295000, 5, true);
+    console.log('product', this.product);
   }
 
-  get product(): ProductModel {
-    if (this._product) {
-      return this._product;
-    } else {
-      return new ProductModel('', 0, 0, false);
-    }
+  onToggleOnSale() {
+    this.toggleOnSale.emit(this.product);
   }
 
-  get cart() {
-    return this._cart;
+  onAddToCart() {
+    this.addToCart.emit(this.product);
   }
 
-  addToCart() {
-    this._product?.changeProductQuantity(1, false);
-    this._cart += 1;
-  }
-
-  removeFromCart() {
-    this._product?.changeProductQuantity(1, true);
-    this._cart -= 1;
+  onRemoveFromCart() {
+    this.removeFromCart.emit(this.product);
   }
 
   isProductOnSale(): boolean {
-    return !!this._product?.onSale;
+    return !!this.product?.onSale;
   }
 
-  toggleOnSale() {
-    this._product!.onSale = !this._product!.onSale;
+  get product_data() {
+    if (this.product) {
+      return this.product;
+    } else {
+      return new ProductModel('', 0, 1, false, '');
+    }
   }
 }

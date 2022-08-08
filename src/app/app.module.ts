@@ -6,9 +6,16 @@ import { AppComponent } from './app.component';
 import { ProductComponentComponent } from './product-component/product-component.component';
 import { StockComponentComponent } from './stock-component/stock-component.component';
 import { StockItemComponent } from './stock-component/stock-item/stock-item.component';
+import { ProductListComponentComponent } from './product-list-component/product-list-component.component';
 
 @NgModule({
-  declarations: [AppComponent, ProductComponentComponent, StockComponentComponent, StockItemComponent],
+  declarations: [
+    AppComponent,
+    ProductComponentComponent,
+    StockComponentComponent,
+    StockItemComponent,
+    ProductListComponentComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],

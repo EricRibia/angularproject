@@ -1,43 +1,36 @@
 <div class="product-info-container">
-  <div class="cart-section">
-    <h1>In Cart:{{cart}}</h1>
-  </div>
+
 <div class="product-card" [class.onSale]="isProductOnSale()">
+  <div>
+
+  </div>
   <div class="product-image">
-    <img src="assets/eames" alt="Eames Chair"/>
+    <button style="position:absolute;top:5px;" (click)="onToggleOnSale()">Toggle On Sale</button>
+    <img [src]="product_data.img_url" alt="Eames Chair"/>
   </div>
   <div class="product-content">
-    <div>
-      <h1>{{product.name}}</h1>
-      <select name="quantity" id="quantity">
-        <option value="0">Please select quantity</option>
-        <option *ngFor="let in of utils.setArrayFromNumber(20);let i = index" [value]="i+1">{{i+1}}</option>
-      </select>
-    </div>
-
-
+    <h1>{{product_data.name}}</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad adipisci, asperiores at culpa, dolore, dolorum ea hic molestiae pariatur quas quidem unde velit. Eaque pariatur quasi similique unde ut!</p>
   </div>
   <div class="product-footer">
     <h3>
-      {{product.price | currency}}
+      {{product_data.price | currency}}
     </h3>
-    <div *ngIf="product.onSale">
-    <button *ngIf="cart==0" (click)="addToCart()">
+    <p *ngIf="product_in_cart">{{product_in_cart}}</p>
+    <p *ngIf="!product_in_cart">Not in cart</p>
+    <div *ngIf="product_data.onSale">
+    <button *ngIf="!product_in_cart" (click)="onAddToCart()">
       Add To Cart
     </button>
-    <div *ngIf="cart!=0" class="incart-button">
-      <button [disabled]="cart == 0" (click)="removeFromCart()">-</button>
-      <p>{{cart}}</p>
-      <button [disabled]="product.quantity == 0" (click)="addToCart()">+</button>
+    <div *ngIf="product_in_cart" class="incart-button">
+      <button [disabled]="product_in_cart == 0" (click)="onRemoveFromCart()">-</button>
+      <p>{{product_in_cart}}</p>
+      <button [disabled]="product_data.quantity == 0" (click)="onAddToCart()">+</button>
     </div>
     </div>
-    <div *ngIf="!product.onSale">
+    <div *ngIf="!product_data.onSale">
       <p>Not on Sale!</p>
     </div>
   </div>
 </div>
-  <div>
-    <button (click)="toggleOnSale()">Toggle On Sale</button>
-  </div>
 </div>
