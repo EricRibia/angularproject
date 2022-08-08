@@ -1,5 +1,10 @@
 <h1 class="text-center">Welcome to the Stock Market App!</h1>
 
 <div class="stock-container" >
-  <app-stock-item [stock]="stock" (toggleFavorite)="handleToggleFavorite()"></app-stock-item>
+  <app-stock-item [stock]="stock" (toggleFavorite)="handleToggleFavorite()">
+    <button (click)="testMethod()">With Button 1</button>
+  </app-stock-item>
+  <app-stock-item [stock]="stock">
+    No buttons for you!!
+  </app-stock-item>
 </div>

@@ -3,16 +3,7 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
-  SimpleChanges,
-  OnChanges,
-  OnDestroy,
-  DoCheck,
-  AfterViewChecked,
-  AfterViewInit,
-  AfterContentChecked,
-  AfterContentInit,
 } from '@angular/core';
 import { StockModel } from '../../models/stock-model';
 
@@ -22,47 +13,13 @@ import { StockModel } from '../../models/stock-model';
   styleUrls: ['./stock-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StockItemComponent
-  implements
-    OnInit,
-    OnChanges,
-    OnDestroy,
-    DoCheck,
-    AfterContentChecked,
-    AfterContentInit,
-    AfterViewChecked,
-    AfterViewInit
-{
+export class StockItemComponent {
   @Input() public stock: StockModel | undefined;
   @Output() public toggleFavorite: EventEmitter<StockModel>;
 
+  // projection article - https://medium.com/claritydesignsystem/ng-content-the-hidden-docs-96a29d70d11b
   constructor() {
     this.toggleFavorite = new EventEmitter<StockModel>();
-  }
-
-  ngOnInit(): void {
-    console.log('Stock Item Component - ngOnInit');
-  }
-  ngAfterViewInit(): void {
-    console.log('Stock Item Component - ngAfterViewInit');
-  }
-  ngAfterViewChecked(): void {
-    console.log('Stock Item Component - ngAfterViewChecked');
-  }
-  ngAfterContentInit(): void {
-    console.log('Stock Item Component - ngAfterContentInit');
-  }
-  ngAfterContentChecked(): void {
-    console.log('Stock Item Component - ngAfterContentChecked');
-  }
-  ngDoCheck(): void {
-    console.log('Stock Item Component - Do Check');
-  }
-  ngOnDestroy(): void {
-    console.log('Stock Item Component - On Destroy');
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('Stock Item Component - On Changes');
   }
 
   onToggleFavorite() {
