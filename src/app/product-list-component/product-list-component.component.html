@@ -1,0 +1,14 @@
+<h1 class="text-center">Welcome to the Furniture Store</h1>
+  <div class="cart-section">
+    <h1>In Cart:{{cart}}</h1>
+  </div>
+<div class="product-container" >
+  <app-product-component
+    *ngFor="let product of products;let i = index"
+    (toggleOnSale)="handleToggleOnSale($event,i)"
+    (addToCart)="handleAddToCart($event)"
+    (removeFromCart)="handleRemoveFromCart($event)"
+    [product_in_cart]="checkProductInCart(product)"
+    [product]="product">
+  </app-product-component>
+</div>
