@@ -33,4 +33,8 @@ export class StockItemComponent {
       return new StockModel('', '', 0, 0);
     }
   }
+
+  isPositive() {
+    return this.stock!.price >= this.stock!.prev_price;
+  }
 }

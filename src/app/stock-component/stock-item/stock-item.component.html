@@ -1,6 +1,8 @@
 <div class="text-center stock-box" [ngClass]="{'favorite':stockObj.favorite}">
-  <h2>{{stockObj.name}} ({{stockObj.code}})</h2>
-  <p>{{stockObj.price|currency}}</p>
-<!--  <button (click)="onToggleFavorite()">Add to Favorite</button>-->
-  <ng-content></ng-content>
+  <h2 id="stock_name">{{stockObj.name}} ({{stockObj.code}})</h2>
+  <p id="stock_price" [class]="isPositive() ? 'success':'failed'">{{stockObj.price|currency:'Shillings':'Kes '}}</p>
+  <button (click)="onToggleFavorite()">Add to Favorite</button>
+<!--  <ng-content></ng-content>-->
 </div>
+
+

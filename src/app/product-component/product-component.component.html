@@ -1,36 +1,39 @@
 <div class="product-info-container">
 
-<div class="product-card" [class.onSale]="isProductOnSale()">
-  <div>
-
-  </div>
-  <div class="product-image">
-    <button style="position:absolute;top:5px;" (click)="onToggleOnSale()">Toggle On Sale</button>
-    <img [src]="product_data.img_url" alt="Eames Chair"/>
-  </div>
-  <div class="product-content">
-    <h1>{{product_data.name}}</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad adipisci, asperiores at culpa, dolore, dolorum ea hic molestiae pariatur quas quidem unde velit. Eaque pariatur quasi similique unde ut!</p>
-  </div>
-  <div class="product-footer">
-    <h3>
-      {{product_data.price | currency}}
-    </h3>
-    <p *ngIf="product_in_cart">{{product_in_cart}}</p>
-    <p *ngIf="!product_in_cart">Not in cart</p>
-    <div *ngIf="product_data.onSale">
-    <button *ngIf="!product_in_cart" (click)="onAddToCart()">
-      Add To Cart
-    </button>
-    <div *ngIf="product_in_cart" class="incart-button">
-      <button [disabled]="product_in_cart == 0" (click)="onRemoveFromCart()">-</button>
-      <p>{{product_in_cart}}</p>
-      <button [disabled]="product_data.quantity == 0" (click)="onAddToCart()">+</button>
+  <div class="product-card" [class.onSale]="isProductOnSale()">
+    <div class="product-image">
+      <button style="position:absolute;top:5px;" (click)="onToggleOnSale()">Toggle On Sale</button>
+      <img [src]="product_data.img_url" alt="Eames Chair"/>
     </div>
+    <div class="product-content">
+      <h1>{{product_data.name}}</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad adipisci, asperiores at culpa, dolore, dolorum
+        ea hic molestiae pariatur quas quidem unde velit. Eaque pariatur quasi similique unde ut!</p>
     </div>
-    <div *ngIf="!product_data.onSale">
-      <p>Not on Sale!</p>
+    <div class="product-footer">
+      <h3>
+        {{product_data.price | currency:'Shillings':'KSh ':'1.0-0'}}
+      </h3>
+      <p *ngIf="product_in_cart">{{product_in_cart}}</p>
+      <p *ngIf="!product_in_cart">Not in cart</p>
+      <div id="saleSection" *ngIf="isProductOnSale()">
+        <div id="hasQuantity" *ngIf="product_data.quantity > 0; else outofstock">
+          <button *ngIf="!product_in_cart" (click)="onAddToCart()">
+            Add to cart
+          </button>
+          <div *ngIf="product_in_cart" class="incart-button">
+            <button [disabled]="product_in_cart == 0" (click)="onRemoveFromCart()">-</button>
+            <p>{{product_in_cart}}</p>
+            <button [disabled]="product_data.quantity == 0" (click)="onAddToCart()">+</button>
+          </div>
+        </div>
+        <ng-template #outofstock>
+          <p id="outofstock">Out of Stock!</p>
+        </ng-template>
+      </div>
+      <div id="notSaleSection" *ngIf="!product_data.onSale">
+        <p>Not on Sale!</p>
+      </div>
     </div>
   </div>
-</div>
 </div>

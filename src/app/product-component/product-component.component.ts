@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProductModel } from '../models/product-model';
 import { Utils } from '../utils';
 
@@ -13,7 +6,7 @@ import { Utils } from '../utils';
   selector: 'app-product-component',
   templateUrl: './product-component.component.html',
   styleUrls: ['./product-component.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductComponentComponent implements OnInit {
   @Input() product: ProductModel | undefined;
@@ -28,9 +21,7 @@ export class ProductComponentComponent implements OnInit {
     this.removeFromCart = new EventEmitter<ProductModel>();
   }
 
-  ngOnInit(): void {
-    console.log('product', this.product);
-  }
+  ngOnInit(): void {}
 
   onToggleOnSale() {
     this.toggleOnSale.emit(this.product);
