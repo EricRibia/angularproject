@@ -2,9 +2,8 @@
 
 <div class="stock-container" >
   <app-stock-item [stock]="stock" (toggleFavorite)="handleToggleFavorite()">
-    <button (click)="testMethod()">With Button 1</button>
   </app-stock-item>
-  <app-stock-item [stock]="stock">
-    No buttons for you!!
-  </app-stock-item>
+</div>
+<div>
+  <app-create-stock></app-create-stock>
 </div>

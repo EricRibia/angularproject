@@ -5,6 +5,7 @@ export class StockModel {
     public name: string,
     public code: string,
     public price: number,
-    public prev_price: number
+    public prev_price: number,
+    public exchange: string = ''
   ) {}
 }

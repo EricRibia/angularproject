@@ -11,7 +11,7 @@ export class StockComponentComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.stock = new StockModel('Test Stock Company', 'TSC', 85, 80);
+    this.stock = new StockModel('Test Stock Company', 'TSC', 85, 100);
     console.log('App Component - On Init');
   }
 
