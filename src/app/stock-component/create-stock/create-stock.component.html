@@ -1,15 +1,13 @@
 <div class="createStock">
   <h2>Create Stock form</h2>
   <form (ngSubmit)="createStock(stockForm)" #stockForm="ngForm">
+    <div ngModelGroup="stock">
     <div class="m10p  stock-name">
       <input required
              class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
-             type="text" placeholder="Stock Name" name="stockName"
-             #stockName="ngModel"
-             [(ngModel)]="stock.name">
-    </div>
-    <div *ngIf="stockName.errors && stockName.errors['required']">
-          <p>Stock Name is mandatory</p>
+             type="text" placeholder="Stock Name"
+             name="name"
+             ngModel>
     </div>
     <div class="m10p stock-code">
       <input
@@ -17,45 +15,34 @@
         type="text" placeholder="Stock Code"
         required
         minlength="2"
-        name="stockCode"
-        #stockCode="ngModel"
-        [(ngModel)]="stock.code">
+        name="code"
+        ngModel
+        >
     </div>
-    <div *ngIf="stockCode.dirty && stockCode.invalid && stockCode.errors">
-      <div *ngIf="stockCode.errors['required']">
-        <p>Stock Code is mandatory</p>
-      </div>
-      <div *ngIf="stockCode.errors['minlength']">
-        <p>Stock Code must be atleast of length 2</p>
-      </div>
-    </div>
-
     <div class="m10p stock-price">
       <input
         class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
         type="number" placeholder="Stock Price"
         required
-        #stockPrice="ngModel"
-        name="stockPrice" [ngModel]="stock.price" (ngModelChange)="setStockPrice($event)">
-    </div>
-    <div *ngIf="stockPrice.dirty && stockPrice.invalid && stockPrice.errors">
-      <div *ngIf="stockPrice.errors['required']">
-        <p>Stock Price is mandatory</p>
-      </div>
+        name="price"
+        ngModel
+      >
     </div>
     <div class="m10p">
       <select
         class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
-        name="stockExchange" [(ngModel)]="stock.exchange">
+        name="exchange"
+      ngModel>
         <option *ngFor="let exchange of exchanges" [ngValue]="exchange">{{exchange}}</option>
       </select>
     </div>
     <div class="m10p">
       <input
         class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
-        type="checkbox" name="stockConfirm" [(ngModel)]='confirmed'>I confirm that the information provided above is accurate!
+        type="checkbox" name="confirm" [(ngModel)]='confirmed'>I confirm that the information provided above is accurate!
     </div>
-    <button [disabled]="!confirmed" type="submit">Create</button>
+    <button class="w-full px-4 py-2 bg-blue-600 disabled:bg-gray-200 disabled:text-gray-500 text-white" [disabled]="!confirmed" type="submit">Create</button>
+    </div>
   </form>
 
   <h4>Stock Name is {{stock | json}}</h4>

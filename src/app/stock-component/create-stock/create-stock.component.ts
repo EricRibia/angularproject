@@ -23,7 +23,6 @@ export class CreateStockComponent implements OnInit {
 
   createStock(stockForm: { valid: any; value: any }) {
     console.log('stockForm', stockForm.value);
-    console.log('Creating stock', this.stock);
     if (stockForm.valid) {
       console.log('Creating stock', this.stock);
     } else {
