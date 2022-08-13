@@ -4,14 +4,27 @@
     <input class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
            type="text" placeholder="Stock Name"
            formControlName="name">
+    <div *ngIf="name!.invalid && (name!.dirty || name!.touched)">
+      <p class="text-red-600" *ngIf="name!.errors!['required']">Name is required</p>
+    </div>
     <input class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
            type="text" placeholder="Stock Code"
            formControlName="code">
+    <div *ngIf="code!.invalid && (code!.dirty || code!.touched)">
+      <p class="text-red-600" *ngIf="code!.errors!['required']">Code is required</p>
+      <p class="text-red-600" *ngIf="code!.errors!['minLength']">Invalid length for code</p>
+    </div>
     <input class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
            type="number" placeholder="Stock Price"
            formControlName="price">
-    <button (click)="onSubmit()" class="mt-5 w-full px-4 py-2 bg-blue-600 disabled:bg-gray-200 disabled:text-gray-500 text-white" type="submit">Create Product</button>
-
+    <div *ngIf="price!.invalid && (price!.dirty || price!.touched)">
+      <p class="text-red-600" *ngIf="price!.errors!['required']">Price is required</p>
+      <p class="text-red-600" *ngIf="price!.errors!['min']">Value can not be below 0</p>
+    </div>
+    <button type="submit" class="mt-5 w-full px-4 py-2 bg-blue-600 disabled:bg-gray-200 disabled:text-gray-500 text-white">Create Product</button>
+    <button type="button" (click)="resetStockForm()" class="mt-5 w-full px-4 py-2 bg-yellow-500 disabled:bg-gray-200 disabled:text-gray-500 text-white">Reset Product Form</button>
+    <button type="button" (click)="patchStockForm()" class="mt-5 w-full px-4 py-2 bg-green-600 disabled:bg-gray-200 disabled:text-gray-500 text-white">Patch Product Form</button>
+    <button type="button" (click)="loadStockFromServer()" class="mt-5 w-full px-4 py-2 bg-fuchsia-500 disabled:bg-gray-200 disabled:text-gray-500 text-white">Load Stock</button>
   </form>
   <p>Form Control value: {{ stockForm.value | json }}</p>
   <p>Form Control status: {{ stockForm.status | json }}</p>
