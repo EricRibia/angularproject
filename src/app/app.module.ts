@@ -8,7 +8,7 @@ import { StockComponentComponent } from './stock-component/stock-component.compo
 import { StockItemComponent } from './stock-component/stock-item/stock-item.component';
 import { ProductListComponentComponent } from './product-list-component/product-list-component.component';
 import { CreateStockComponent } from './stock-component/create-stock/create-stock.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateProductComponent } from './create-product/create-product.component';
 
 @NgModule({
@@ -21,7 +21,7 @@ import { CreateProductComponent } from './create-product/create-product.componen
     CreateStockComponent,
     CreateProductComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -1,51 +1,19 @@
-<div class="createStock">
+<div class="createStock mx-auto max-w-4xl p-10">
   <h2>Create Stock form</h2>
-  <form (ngSubmit)="createStock(stockForm)" #stockForm="ngForm">
-    <div ngModelGroup="stock">
-    <div class="m10p  stock-name">
-      <input required
-             class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
-             type="text" placeholder="Stock Name"
-             name="name"
-             ngModel>
-    </div>
-    <div class="m10p stock-code">
-      <input
-        class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
-        type="text" placeholder="Stock Code"
-        required
-        minlength="2"
-        name="code"
-        ngModel
-        >
-    </div>
-    <div class="m10p stock-price">
-      <input
-        class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
-        type="number" placeholder="Stock Price"
-        required
-        name="price"
-        ngModel
-      >
-    </div>
-    <div class="m10p">
-      <select
-        class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
-        name="exchange"
-      ngModel>
-        <option *ngFor="let exchange of exchanges" [ngValue]="exchange">{{exchange}}</option>
-      </select>
-    </div>
-    <div class="m10p">
-      <input
-        class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
-        type="checkbox" name="confirm" [(ngModel)]='confirmed'>I confirm that the information provided above is accurate!
-    </div>
-    <button class="w-full px-4 py-2 bg-blue-600 disabled:bg-gray-200 disabled:text-gray-500 text-white" [disabled]="!confirmed" type="submit">Create</button>
-    </div>
-  </form>
+  <form [formGroup]="stockForm" (ngSubmit)="onSubmit()">
+    <input class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
+           type="text" placeholder="Stock Name"
+           formControlName="name">
+    <input class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
+           type="text" placeholder="Stock Code"
+           formControlName="code">
+    <input class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
+           type="number" placeholder="Stock Price"
+           formControlName="price">
+    <button (click)="onSubmit()" class="mt-5 w-full px-4 py-2 bg-blue-600 disabled:bg-gray-200 disabled:text-gray-500 text-white" type="submit">Create Product</button>
 
-  <h4>Stock Name is {{stock | json}}</h4>
-  <h2>Data has been confirmed: {{confirmed}}</h2>
+  </form>
+  <p>Form Control value: {{ stockForm.value | json }}</p>
+  <p>Form Control status: {{ stockForm.status | json }}</p>
 </div>
 

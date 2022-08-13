@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StockModel } from '../../models/stock-model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-stock',
@@ -10,23 +11,19 @@ export class CreateStockComponent implements OnInit {
   public stock: StockModel;
   public confirmed: boolean = false;
   public exchanges = ['NYSE', 'NASDAQ', 'OTHER'];
+  public nameControl = new FormControl();
+  public stockForm = new FormGroup({
+    name: new FormControl(null, Validators.required),
+    code: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+    price: new FormControl(0, [Validators.required, Validators.min(0)]),
+  });
   constructor() {
     this.stock = new StockModel('', '', 0, 0);
   }
 
   ngOnInit(): void {}
 
-  setStockPrice(price: number) {
-    this.stock.price = price;
-    this.stock.prev_price = price;
-  }
-
-  createStock(stockForm: { valid: any; value: any }) {
-    console.log('stockForm', stockForm.value);
-    if (stockForm.valid) {
-      console.log('Creating stock', this.stock);
-    } else {
-      console.error('Stock form is in an invalid state');
-    }
+  onSubmit() {
+    console.log('Form control value', this.stockForm.value);
   }
 }
