@@ -9,6 +9,7 @@ import { StockItemComponent } from './stock-component/stock-item/stock-item.comp
 import { ProductListComponentComponent } from './product-list-component/product-list-component.component';
 import { CreateStockComponent } from './stock-component/create-stock/create-stock.component';
 import { FormsModule } from '@angular/forms';
+import { CreateProductComponent } from './create-product/create-product.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
     StockItemComponent,
     ProductListComponentComponent,
     CreateStockComponent,
+    CreateProductComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],

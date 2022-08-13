@@ -1,0 +1,50 @@
+<div class="createStock max-w-5xl mx-auto mt-10 p-5">
+  <h2>Create Product Form</h2>
+  <p class="text-red-500">{{message}}</p>
+  <form (ngSubmit)="createProduct(productForm)" #productForm="ngForm">
+    <div ngModelGroup="product">
+      <div class="mt-5">
+        <input required
+               class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
+               type="text" placeholder="Product Name"
+               name="name"
+               #productName="ngModel"
+               ngModel>
+        <div *ngIf="(productName.dirty || message) && productName.invalid && productName.errors">
+            <p *ngIf="productName.errors['required']">Product Name is required</p>
+        </div>
+      </div>
+      <div class="mt-5">
+        <input required
+               class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
+               type="number" placeholder="Product Price"
+               name="price"
+               #productPrice="ngModel"
+               ngModel>
+        <div *ngIf="(productPrice.dirty || message) && productPrice.invalid && productPrice.errors">
+          <p *ngIf="productPrice.errors['required']">Product Price is required</p>
+        </div>
+      </div>
+      <div class="mt-5">
+        <input required
+               class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
+               type="text" placeholder="Image Url"
+               name="image_url"
+               #productImageUrl="ngModel"
+               pattern="(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)"
+               ngModel>
+        <div *ngIf="(productImageUrl.dirty || message) && productImageUrl.invalid && productImageUrl.errors">
+          <p *ngIf="productImageUrl.errors['required']">Img url is required</p>
+          <p *ngIf="productImageUrl.errors['pattern']">Img url is invalid</p>
+        </div>
+      </div>
+      <div class="flex items-center my-5">
+        <input class="mr-5" id="onSale" type="checkbox" name="onSale" ngModel/><label for="onSale">Is the product on sale?</label>
+      </div>
+      <div>
+        <button class="w-full px-4 py-2 bg-blue-600 disabled:bg-gray-200 disabled:text-gray-500 text-white" type="submit">Create Product</button>
+      </div>
+    </div>
+  </form>
+</div>
+
