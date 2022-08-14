@@ -21,6 +21,25 @@
       <p class="text-red-600" *ngIf="price!.errors!['required']">Price is required</p>
       <p class="text-red-600" *ngIf="price!.errors!['min']">Value can not be below 0</p>
     </div>
+    <div formArrayName="notablePeople">
+      <div *ngFor="let person of notablePeople.controls; let i = index" [formGroupName]="i">
+        <p>Person {{i+1}}</p>
+        <div>
+          <input class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
+                 type="text" placeholder="Person Name"
+                 formControlName="name">
+        </div>
+        <div>
+          <input class='w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow'
+                 type="text" placeholder="Person Title"
+                 formControlName="title">
+        </div>
+        <div>
+          <button type="button" (click)="removeNotablePerson(i)" class="mt-5 w-full px-4 py-2 bg-pink-400 disabled:bg-gray-200 disabled:text-gray-500 text-white">Remove Notable</button>
+        </div>
+      </div>
+    </div>
+    <button type="button" (click)="addNotablePerson()" class="mt-5 w-full px-4 py-2 bg-sky-400 disabled:bg-gray-200 disabled:text-gray-500 text-white">Add Notable</button>
     <button type="submit" class="mt-5 w-full px-4 py-2 bg-blue-600 disabled:bg-gray-200 disabled:text-gray-500 text-white">Create Product</button>
     <button type="button" (click)="resetStockForm()" class="mt-5 w-full px-4 py-2 bg-yellow-500 disabled:bg-gray-200 disabled:text-gray-500 text-white">Reset Product Form</button>
     <button type="button" (click)="patchStockForm()" class="mt-5 w-full px-4 py-2 bg-green-600 disabled:bg-gray-200 disabled:text-gray-500 text-white">Patch Product Form</button>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StockModel } from '../../models/stock-model';
 import {
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -34,7 +35,25 @@ export class CreateStockComponent implements OnInit {
       name: [null, Validators.required],
       code: [null, [Validators.required, Validators.minLength(2)]],
       price: [0, [Validators.required, Validators.min(1)]],
+      notablePeople: this.fb.array([]),
     });
+  }
+
+  get notablePeople() {
+    return this.stockForm.get('notablePeople') as FormArray;
+  }
+
+  addNotablePerson() {
+    this.notablePeople.push(
+      this.fb.group({
+        name: ['', Validators.required],
+        title: ['', Validators.required],
+      })
+    );
+  }
+
+  removeNotablePerson(index: number) {
+    this.notablePeople.removeAt(index);
   }
 
   loadStockFromServer() {

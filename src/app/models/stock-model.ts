@@ -1,5 +1,6 @@
 export class StockModel {
   favorite: boolean = false;
+  notablePeople: Person[];
 
   constructor(
     public name: string,
@@ -7,5 +8,12 @@ export class StockModel {
     public price: number,
     public prev_price: number,
     public exchange: string = ''
-  ) {}
+  ) {
+    this.notablePeople = [];
+  }
+}
+
+export class Person {
+  name!: string;
+  title!: string;
 }
