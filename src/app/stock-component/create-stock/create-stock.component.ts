@@ -7,6 +7,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { StockService } from '../../services/stock.service';
+import { MessgeServiceService } from '../../services/messge-service.service';
 
 let counter = 1;
 
@@ -14,74 +16,47 @@ let counter = 1;
   selector: 'app-create-stock',
   templateUrl: './create-stock.component.html',
   styleUrls: ['./create-stock.component.scss'],
+  providers: [MessgeServiceService],
 })
 export class CreateStockComponent implements OnInit {
   public stockForm!: FormGroup;
-  private stock!: StockModel;
+  public stock!: StockModel;
+  public message!: { typ: 'success' | 'error'; text: string };
 
-  constructor(private fb: FormBuilder) {
-    this.createForm();
+  constructor(
+    private stockService: StockService,
+    public messageService: MessgeServiceService
+  ) {
+    this.stock = new StockModel('', '', 0, 0);
+    this.message = { typ: 'success', text: '' };
   }
 
   ngOnInit(): void {}
 
-  onSubmit() {
-    this.stock = Object.assign({}, this.stockForm.value);
-    console.log('Form control value', this.stock);
+  setStockPrice(price: number) {
+    this.stock.price = price;
+    this.stock.prev_price = price;
   }
-
-  createForm() {
-    this.stockForm = this.fb.group({
-      name: [null, Validators.required],
-      code: [null, [Validators.required, Validators.minLength(2)]],
-      price: [0, [Validators.required, Validators.min(1)]],
-      notablePeople: this.fb.array([]),
-    });
-  }
-
-  get notablePeople() {
-    return this.stockForm.get('notablePeople') as FormArray;
-  }
-
-  addNotablePerson() {
-    this.notablePeople.push(
-      this.fb.group({
-        name: ['', Validators.required],
-        title: ['', Validators.required],
-      })
-    );
-  }
-
-  removeNotablePerson(index: number) {
-    this.notablePeople.removeAt(index);
-  }
-
-  loadStockFromServer() {
-    this.stock = new StockModel('Test ' + counter++, 'TSC', 20, 10);
-    let stockModelForForm: Partial<StockModel> = Object.assign({}, this.stock);
-    delete stockModelForForm.prev_price;
-    delete stockModelForForm.favorite;
-    delete stockModelForForm.exchange;
-    console.log('stockModelForForm', stockModelForForm);
-    this.stockForm.setValue(stockModelForForm);
-  }
-
-  resetStockForm() {
-    this.stockForm.reset();
-  }
-
-  patchStockForm() {
-    this.stock = new StockModel('Test ' + counter++, 'TSC', 20, 10);
-    this.stockForm.patchValue(this.stock);
-  }
-
-  get name() {
-    return this.stockForm.get('name');
-  }
-  get price() {
-    return this.stockForm.get('price');
-  }
-  get code() {
-    return this.stockForm.get('code');
+  createStock(stockForm: { valid: any; value: any }) {
+    if (stockForm.valid) {
+      console.log('Creating stock', this.stock);
+      const stockCreated = this.stockService.createStock(this.stock);
+      if (stockCreated) {
+        this.message!.text =
+          'Successfully created stock with stock code: ' + this.stock.code;
+        this.message!.typ = 'success';
+        this.messageService.message =
+          'Successfully created stock with stock code: ' + this.stock.code;
+        this.stock = new StockModel('', '', 0, 0);
+      } else {
+        this.message!.text =
+          'Stock with stock code: ' + this.stock.code + ' already exists';
+        this.message!.typ = 'error';
+        this.messageService.message =
+          'Stock with stock code: ' + this.stock.code + ' already exists';
+      }
+    } else {
+      console.error('Stock form is in an invalid state');
+    }
   }
 }

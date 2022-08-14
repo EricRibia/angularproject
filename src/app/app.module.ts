@@ -10,6 +10,9 @@ import { ProductListComponentComponent } from './product-list-component/product-
 import { CreateStockComponent } from './stock-component/create-stock/create-stock.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateProductComponent } from './create-product/create-product.component';
+import { StockListComponent } from './stock-component/stock-list/stock-list.component';
+import { StockService } from './services/stock.service';
+import { MessgeServiceService } from './services/messge-service.service';
 
 @NgModule({
   declarations: [
@@ -20,9 +23,10 @@ import { CreateProductComponent } from './create-product/create-product.componen
     ProductListComponentComponent,
     CreateStockComponent,
     CreateProductComponent,
+    StockListComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
-  providers: [],
+  providers: [StockService, MessgeServiceService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

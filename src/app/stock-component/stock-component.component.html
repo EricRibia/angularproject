@@ -1,8 +1,7 @@
-<h1 class="text-center">Welcome to the Stock Market App!</h1>
+<h1 class="text-center font-bold text-3xl mt-5">Welcome to the Stock Market App!</h1>
 
-<div class="stock-container" >
-  <app-stock-item [stock]="stock" (toggleFavorite)="handleToggleFavorite()">
-  </app-stock-item>
+<div class="stock-container mt-10">
+  <app-stock-list></app-stock-list>
 </div>
 <div>
   <app-create-stock></app-create-stock>
