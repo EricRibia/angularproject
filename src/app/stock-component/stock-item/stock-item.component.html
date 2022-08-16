@@ -1,7 +1,7 @@
-<div class="text-center stock-box" [ngClass]="{'favorite':stockObj.favorite}">
-  <h2 id="stock_name">{{stockObj.name}} ({{stockObj.code}})</h2>
-  <p id="stock_price" [class]="isPositive() ? 'success':'failed'">{{stockObj.price|currency:'Shillings':'Kes '}}</p>
-  <button (click)="onToggleFavorite()">Add to Favorite</button>
+<div class="text-center stock-box" [ngClass]="{'favorite':stock.favorite}">
+  <h2 id="stock_name">{{stock.name}} ({{stock.code}})</h2>
+  <p id="stock_price" [class.success]="stock.price >= stock.prev_price" [class.failed]="stock.price < stock.prev_price">{{stock.price|currency:'Shillings':'Kes '}}</p>
+  <button class="bg-gray-300 px-3 py-1 rounded-md mt-5 hover:bg-gray-600 hover:text-white hover:cursor-pointer" (click)="onToggleFavorite()">Add to Favorite</button>
 <!--  <ng-content></ng-content>-->
 </div>
 

@@ -13,6 +13,7 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { StockListComponent } from './stock-component/stock-list/stock-list.component';
 import { StockService } from './services/stock.service';
 import { MessgeServiceService } from './services/messge-service.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,13 @@ import { MessgeServiceService } from './services/messge-service.service';
     CreateProductComponent,
     StockListComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+  ],
   providers: [StockService, MessgeServiceService],
   bootstrap: [AppComponent],
 })

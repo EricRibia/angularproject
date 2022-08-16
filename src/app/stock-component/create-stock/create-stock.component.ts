@@ -27,10 +27,21 @@ export class CreateStockComponent implements OnInit {
     private stockService: StockService,
     public messageService: MessgeServiceService
   ) {
-    this.stock = new StockModel('', '', 0, 0);
+    this.initializeStock();
     this.message = { typ: 'success', text: '' };
   }
 
+  initializeStock() {
+    this.stock = {
+      name: '',
+      code: '',
+      favorite: false,
+      exchange: 'NASDAQ',
+      price: 0,
+      prev_price: 0,
+      notablePeople: [],
+    };
+  }
   ngOnInit(): void {}
 
   setStockPrice(price: number) {
@@ -41,18 +52,17 @@ export class CreateStockComponent implements OnInit {
     if (stockForm.valid) {
       console.log('Creating stock', this.stock);
       this.stockService.createStock(this.stock).subscribe(
-        (resp) => {
+        (resp: any) => {
           console.log('resp', resp);
-          this.message!.text = resp.message;
+          this.message!.text = resp.msg;
           this.message!.typ = 'success';
-          this.messageService.message = resp.message;
-          this.stock = new StockModel('', '', 0, 0);
+          this.initializeStock();
         },
         (err) => {
           console.log('err', err);
-          this.message!.text = err.message;
+          this.message!.text = err.error.msg;
           this.message!.typ = 'error';
-          this.messageService.message = err.message;
+          // this.messageService.message = err.message;
         }
       );
     } else {

@@ -11,15 +11,6 @@ export class StockComponentComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.stock = new StockModel('Test Stock Company', 'TSC', 85, 100);
     console.log('App Component - On Init');
-  }
-
-  handleToggleFavorite() {
-    this.stock!['favorite'] = !this.stock!['favorite'];
-  }
-
-  testMethod() {
-    console.log('Test method in AppComponent triggered');
   }
 }
