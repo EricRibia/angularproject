@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StockModel } from '../../models/stock-model';
 import { StockService } from '../../services/stock.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-stock-list',
@@ -8,15 +9,12 @@ import { StockService } from '../../services/stock.service';
   styleUrls: ['./stock-list.component.scss'],
 })
 export class StockListComponent implements OnInit {
-  public stocks: StockModel[];
-  constructor(private stockService: StockService) {
-    this.stocks = [];
-    this.stockService.getStocks().subscribe((stocks) => {
-      this.stocks = stocks;
-    });
-  }
+  public stocks$: Observable<StockModel[]> | undefined;
+  constructor(private stockService: StockService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.stocks$ = this.stockService.getStocks();
+  }
 
   onToggleFavorite(stock: StockModel) {
     console.log('Favorite for stock', stock, 'was triggered');
