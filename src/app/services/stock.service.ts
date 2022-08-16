@@ -3,7 +3,12 @@ import { StockModel } from '../models/stock-model';
 import { throwError as ObservableThrow } from 'rxjs';
 import { of as ObservableOf } from 'rxjs';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEvent,
+  HttpHeaders,
+  HttpResponse,
+} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +16,37 @@ import { HttpClient } from '@angular/common/http';
 export class StockService {
   constructor(private http: HttpClient) {}
   getStocks(): Observable<StockModel[]> {
-    return this.http.get<StockModel[]>('/api/stock');
+    return this.http.get<StockModel[]>('/api/stock', {
+      headers: new HttpHeaders()
+        .set('Authorization', 'MyAuthorizationHeaderValue')
+        .set('X-EXAMPLE-HEADER', 'TestValue'),
+      params: {
+        q: 'test',
+        test: 'value',
+      },
+      observe: 'body',
+    });
+  }
+  getStocksAsResponse(): Observable<HttpResponse<StockModel[]>> {
+    return this.http.get<StockModel[]>('/api/stock', {
+      observe: 'response',
+    });
+  }
+  getStocksAsEvents(): Observable<HttpEvent<any>> {
+    return this.http.get('/api/stock', {
+      observe: 'events',
+    });
+  }
+  getStocksAsString(): Observable<string> {
+    return this.http.get('/api/stock', {
+      responseType: 'text',
+    });
+  }
+
+  getStocksAsBlob(): Observable<Blob> {
+    return this.http.get('/api/stock', {
+      responseType: 'blob',
+    });
   }
 
   createStock(stock: StockModel) {
