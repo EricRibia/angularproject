@@ -10,13 +10,18 @@ import { StockService } from '../../services/stock.service';
 export class StockListComponent implements OnInit {
   public stocks: StockModel[];
   constructor(private stockService: StockService) {
-    this.stocks = this.stockService.getStocks();
+    this.stocks = [];
+    this.stockService.getStocks().subscribe((stocks) => {
+      this.stocks = stocks;
+    });
   }
 
   ngOnInit(): void {}
 
   onToggleFavorite(stock: StockModel) {
     console.log('Favorite for stock', stock, 'was triggered');
-    this.stockService.handleToggleFavorite(stock);
+    this.stockService
+      .handleToggleFavorite(stock)
+      .subscribe((resp) => console.log('fav resp', resp));
   }
 }
