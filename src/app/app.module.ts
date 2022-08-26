@@ -13,7 +13,12 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { StockListComponent } from './stock-component/stock-list/stock-list.component';
 import { StockService } from './services/stock.service';
 import { MessgeServiceService } from './services/messge-service.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
+import { StockAppInterceptor } from './services/stock-app.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,7 +38,15 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [StockService, MessgeServiceService],
+  providers: [
+    StockService,
+    MessgeServiceService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: StockAppInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

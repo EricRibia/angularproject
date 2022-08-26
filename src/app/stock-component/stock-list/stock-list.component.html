@@ -1,5 +1,11 @@
 <div class="flex gap-5 flex-wrap justify-center">
   <app-stock-item *ngFor="let stock of stocks$ | async" [stock]="stock">
   </app-stock-item>
+  <div class="flex gap-5 flex-wrap justify-center mt-10">
+    <button (click)="fetchStocks()" class="bg-sky-400 px-3 py-2">Fetch Stock</button>
+    <button (click)="makeFailingCall()" class="bg-sky-400 px-3 py-2">Make failing call</button>
+    <button (click)="setAuthToken()" class="bg-sky-400 px-3 py-2">Set Auth Token</button>
+    <button (click)="resetAuthToken()" class="bg-sky-400 px-3 py-2">Reset Auth Token</button>
+  </div>
 </div>
 
